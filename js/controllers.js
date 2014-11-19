@@ -1,9 +1,18 @@
 'use strict';
 
 
-function appCtrl($scope) {
-    $scope.name = "World!";
-    $scope.updateName = function(){
-        $scope.name = "World from function";
-    }
-}
+var controllers = angular.module("dabble.controllers", []);
+
+
+controllers.controller("appCtrl", function($scope){
+    $scope.name = "World";
+
+});
+
+controllers.controller("ShotsListCtrl", function($scope, $http){
+    $http.jsonp("http://api.dribbble.com/shots/popular?callback=JSON_CALLBACK").then(function (info){
+    $scope.list = info.data;
+    console.log(info);
+    });
+    
+});
